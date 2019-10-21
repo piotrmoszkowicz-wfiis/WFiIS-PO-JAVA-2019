@@ -46,89 +46,89 @@ public class lab02 {
         return result;
     }
 
-    static public void cleanUp(ArrayList<Integer> seq1, ArrayList<Integer> seq2, int sum1, int sum2) {
-        if (seq1.size() == seq2.size()) {
-            if (sum1 != sum2) {
-                while (sum1 > sum2) {
-                    seq1.remove(seq1.size() - 1);
-                    seq2.remove(0);
-                    sum1--;
+    static public void cleanUp(ArrayList<Integer> firstSequence, ArrayList<Integer> secondSequence, int firstSum, int secondSum) {
+        if (firstSequence.size() == secondSequence.size()) {
+            if (firstSum != secondSum) {
+                while (firstSum > secondSum) {
+                    firstSequence.remove(firstSequence.size() - 1);
+                    secondSequence.remove(0);
+                    firstSum--;
                 }
-                while (sum2 > sum1) {
-                    seq2.remove(seq2.size() - 1);
-                    seq1.remove(0);
-                    sum2--;
+                while (secondSum > firstSum) {
+                    secondSequence.remove(secondSequence.size() - 1);
+                    firstSequence.remove(0);
+                    secondSum--;
                 }
             }
         } else {
-            while (sum1 > sum2) {
-                seq1.remove(seq1.size() - 1);
-                sum1--;
+            while (firstSum > secondSum) {
+                firstSequence.remove(firstSequence.size() - 1);
+                firstSum--;
             }
-            while (sum2 > sum1) {
-                seq2.remove(seq2.size() - 1);
-                sum2--;
+            while (secondSum > firstSum) {
+                secondSequence.remove(secondSequence.size() - 1);
+                secondSum--;
             }
-            while (seq1.size() > seq2.size()) {
-                seq1.remove(0);
+            while (firstSequence.size() > secondSequence.size()) {
+                firstSequence.remove(0);
             }
-            while (seq1.size() < seq2.size()) {
-                seq2.remove(0);
-            }
-        }
-    }
-
-    static public void resize(ArrayList<Integer> seq1, ArrayList<Integer> seq2, int sum1, int sum2) {
-        if (sum1 != sum2) {
-            while (sum1 > sum2) {
-                for (int i = 0; i < seq1.size(); i++) {
-                    if (seq1.get(i) == 1) {
-                        seq1.remove(i);
-                        sum1--;
-                        break;
-                    }
-                }
-            }
-            while (sum1 < sum2) {
-                for (int i = 0; i < seq2.size(); i++) {
-                    if (seq2.get(i) == 1) {
-                        seq2.remove(i);
-                        sum2--;
-                        break;
-                    }
-                }
-            }
-        }
-        while (seq1.size() > seq2.size()) {
-            for (int i = 0; i < seq1.size(); i++) {
-                if (seq1.get(i) == 0) {
-                    seq1.remove(i);
-                    break;
-                }
-            }
-        }
-        while (seq1.size() < seq2.size()) {
-            for (int i = 0; i < seq2.size(); i++) {
-                if (seq2.get(i) == 0) {
-                    seq2.remove(i);
-                    break;
-                }
+            while (firstSequence.size() < secondSequence.size()) {
+                secondSequence.remove(0);
             }
         }
     }
 
-    static public int twoCases(ArrayList<Integer> seq1, ArrayList<Integer> seq2, int sum1, int sum2, int i) {
+    static public void resize(ArrayList<Integer> firstSequence, ArrayList<Integer> secondSequence, int firstSum, int secondSum) {
+        if (firstSum != secondSum) {
+            while (firstSum > secondSum) {
+                for (int i = 0; i < firstSequence.size(); i++) {
+                    if (firstSequence.get(i) == 1) {
+                        firstSequence.remove(i);
+                        firstSum--;
+                        break;
+                    }
+                }
+            }
+            while (firstSum < secondSum) {
+                for (int i = 0; i < secondSequence.size(); i++) {
+                    if (secondSequence.get(i) == 1) {
+                        secondSequence.remove(i);
+                        secondSum--;
+                        break;
+                    }
+                }
+            }
+        }
+        while (firstSequence.size() > secondSequence.size()) {
+            for (int i = 0; i < firstSequence.size(); i++) {
+                if (firstSequence.get(i) == 0) {
+                    firstSequence.remove(i);
+                    break;
+                }
+            }
+        }
+        while (firstSequence.size() < secondSequence.size()) {
+            for (int i = 0; i < secondSequence.size(); i++) {
+                if (secondSequence.get(i) == 0) {
+                    secondSequence.remove(i);
+                    break;
+                }
+            }
+        }
+    }
+
+    static public int twoCases(ArrayList<Integer> firstSequence, ArrayList<Integer> secondSequence, int i) {
         int temp = 0;
-        ArrayList<Integer> seq1_temp = delAllZerosFromArray(copyArray(seq1), i + 1);
-        ArrayList<Integer> seq2_temp = delAllZerosFromArray(copyArray(seq2), i);
-        deleteOnesUntilIndex(seq1_temp, i);
-        deleteOnesUntilIndex(seq2_temp, i);
-        cleanUp(seq1_temp, seq2_temp, sum(seq1_temp), sum(seq2_temp));
-        temp = seq1_temp.size();
-        ArrayList<Integer> other_copyArray1 = copyArray(seq1);
-        ArrayList<Integer> other_copyArray2 = copyArray(seq2);
-        other_copyArray1.remove(i);
-        int other = process(other_copyArray1, other_copyArray2);
+        ArrayList<Integer> firstSequenceTemp = delAllZerosFromArray(copyArray(firstSequence), i + 1);
+        ArrayList<Integer> secondSequenceTemp = delAllZerosFromArray(copyArray(secondSequence), i);
+        deleteOnesUntilIndex(firstSequenceTemp, i);
+        deleteOnesUntilIndex(secondSequenceTemp, i);
+        cleanUp(firstSequenceTemp, secondSequenceTemp, sum(firstSequenceTemp), sum(secondSequenceTemp));
+        temp = firstSequenceTemp.size();
+        ArrayList<Integer> firstSequenceCopy = copyArray(firstSequence);
+        ArrayList<Integer> secondSequenceCopy = copyArray(secondSequence);
+        firstSequenceCopy.remove(i);
+        int other = process(firstSequenceCopy, secondSequenceCopy);
         if (other > temp) {
             temp = other;
         }
@@ -186,9 +186,9 @@ public class lab02 {
                     }
                 }
             } else if (seq1.get(i) == 1 && seq2.get(i) == 0) {
-                temp = twoCases(seq1, seq2, sum1, sum2, i);
+                temp = twoCases(seq1, seq2, i);
             } else if (seq1.get(i) == 0 && seq2.get(i) == 1) {
-                temp = twoCases(seq2, seq1, sum2, sum1, i);
+                temp = twoCases(seq2, seq1, i);
             } else {
                 ArrayList<Integer> firstSequenceTemp = delAllZerosFromArray(copyArray(seq1), i + 1);
                 ArrayList<Integer> secondSequenceTemp = delAllZerosFromArray(copyArray(seq2), i + 1);
