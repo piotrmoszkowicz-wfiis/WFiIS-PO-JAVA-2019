@@ -31,9 +31,9 @@ public class lab02 {
 
     static public ArrayList<Integer> createRandom(int lenght) {
         ArrayList<Integer> result = new ArrayList<Integer>();
-        Random generator = new Random();
+        Random randomGenerator = new Random();
         for (int i = 0; i < lenght; i++) {
-            result.add(i, generator.nextInt(2));
+            result.add(i, randomGenerator.nextInt(2));
         }
         return result;
     }
