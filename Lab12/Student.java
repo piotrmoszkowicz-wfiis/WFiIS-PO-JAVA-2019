@@ -3,7 +3,8 @@ public class Student {
     private String nazwisko;
     private int wiek;
 
-    public Student() {}
+    public Student() {
+    }
 
     public Student(String imie, String nazwisko, int wiek) {
         this.imie = imie;
